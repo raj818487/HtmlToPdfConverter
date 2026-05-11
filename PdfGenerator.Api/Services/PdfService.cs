@@ -1,10 +1,23 @@
 using Microsoft.Playwright;
 using PdfGenerator.Api.DTOs;
+using System.Text.RegularExpressions;
 
 namespace PdfGenerator.Api.Services;
 
 public class PdfService : IPdfService
 {
+    private static readonly Regex ScriptTagRegex = new(
+        @"<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>",
+        RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
+
+    private static readonly Regex InlineEventRegex = new(
+        @"\s*(on\w+)\s*=\s*(['""]).*?\2",
+        RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
+
+    private static readonly Regex JsProtocolRegex = new(
+        @"\s(href|src)\s*=\s*(['""])\s*javascript:.*?\2",
+        RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
+
     private static readonly HashSet<string> AllowedFormats = new(StringComparer.OrdinalIgnoreCase)
     {
         "A3", "A4", "A5", "Letter", "Legal", "Tabloid", "Ledger"
@@ -78,8 +91,9 @@ public class PdfService : IPdfService
 
     private static string SanitizeHtml(string htmlContent)
     {
-        return htmlContent
-            .Replace("<script", "&lt;script", StringComparison.OrdinalIgnoreCase)
-            .Replace("</script>", "&lt;/script&gt;", StringComparison.OrdinalIgnoreCase);
+        var sanitized = ScriptTagRegex.Replace(htmlContent, string.Empty);
+        sanitized = InlineEventRegex.Replace(sanitized, string.Empty);
+        sanitized = JsProtocolRegex.Replace(sanitized, string.Empty);
+        return sanitized;
     }
 }

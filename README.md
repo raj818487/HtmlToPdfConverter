@@ -10,7 +10,7 @@ Angular + .NET 10 + Playwright based HTML-to-PDF converter.
 ## Backend setup
 
 ```bash
-cd /home/runner/work/HtmlToPdfConverter/HtmlToPdfConverter/PdfGenerator.Api
+cd PdfGenerator.Api
 dotnet restore
 dotnet build
 pwsh bin/Debug/net10.0/playwright.ps1 install
@@ -19,12 +19,12 @@ dotnet run
 
 API endpoint:
 
-- `POST https://localhost:5001/api/pdf/generate`
+- `POST https://localhost:7237/api/pdf/generate`
 
 ## Frontend setup
 
 ```bash
-cd /home/runner/work/HtmlToPdfConverter/HtmlToPdfConverter/frontend
+cd frontend
 npm install
 npm start
 ```

@@ -16,7 +16,7 @@ export interface GeneratePdfRequest {
   providedIn: 'root'
 })
 export class PdfService {
-  private readonly apiUrl = 'https://localhost:5001/api/pdf/generate';
+  private readonly apiUrl = 'https://localhost:7237/api/pdf/generate';
 
   constructor(private readonly http: HttpClient) {}
 

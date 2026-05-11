@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, SecurityContext } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { PdfService, GeneratePdfRequest } from './services/pdf.service';
 
 @Component({
@@ -36,7 +37,14 @@ export class App {
   isLoading = false;
   errorMessage = '';
 
-  constructor(private readonly pdfService: PdfService) {}
+  constructor(
+    private readonly pdfService: PdfService,
+    private readonly domSanitizer: DomSanitizer
+  ) {}
+
+  get sanitizedPreviewHtml() {
+    return this.domSanitizer.sanitize(SecurityContext.HTML, this.htmlContent) ?? '';
+  }
 
   generatePdf() {
     this.errorMessage = '';
@@ -58,8 +66,8 @@ export class App {
         this.downloadFile(blob, 'generated-report.pdf');
         this.isLoading = false;
       },
-      error: () => {
-        this.errorMessage = 'PDF generation failed. Verify API is running and HTTPS certificate is trusted.';
+      error: (error) => {
+        this.errorMessage = `PDF generation failed: ${error?.message ?? 'Unknown error'}`;
         this.isLoading = false;
       }
     });
