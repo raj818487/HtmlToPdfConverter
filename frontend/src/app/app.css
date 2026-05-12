@@ -1,0 +1,237 @@
+:host {
+  --primary: #cc785c;
+  --primary-active: #a9583e;
+  --primary-disabled: #e6dfd8;
+  --ink: #141413;
+  --body: #3d3d3a;
+  --muted: #6c6a64;
+  --hairline: #e6dfd8;
+  --canvas: #faf9f5;
+  --surface-card: #efe9de;
+  --surface-soft: #f5f0e8;
+  --surface-dark: #181715;
+  --on-primary: #ffffff;
+  --on-dark: #faf9f5;
+
+  display: block;
+  min-height: 100dvh;
+  color: var(--body);
+  background: var(--canvas);
+  font-family: "StyreneB", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page-shell {
+  min-height: 100dvh;
+}
+
+.topbar {
+  border-bottom: 1px solid var(--hairline);
+  padding: 24px 28px;
+  background: var(--canvas);
+}
+
+.topbar h1 {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Copernicus", "Tiempos Headline", serif;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.topbar p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 24px;
+  padding: 24px 28px 32px;
+}
+
+.left-panel,
+.right-panel {
+  background: var(--surface-soft);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+h2 {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.html-editor {
+  width: 100%;
+  height: min(72vh, 760px);
+  resize: vertical;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  padding: 12px;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.grid-two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+label {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+input,
+select {
+  height: 36px;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 0 10px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.checkbox-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  margin-bottom: 14px;
+}
+
+.checkbox-row input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
+}
+
+.generate-btn {
+  width: 100%;
+  height: 40px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--on-primary);
+  background: var(--primary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.generate-btn:hover:not(:disabled) {
+  background: var(--primary-active);
+}
+
+.generate-btn:disabled {
+  background: var(--primary-disabled);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.error {
+  margin: 10px 0 0;
+  color: #c64545;
+  font-size: 13px;
+}
+
+.preview-box {
+  margin-top: 20px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 16px;
+}
+
+.preview-box h3 {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.preview-content {
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  min-height: 220px;
+  max-height: 380px;
+  overflow: auto;
+  padding: 12px;
+}
+
+.preview-content :where(.header) {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.preview-content :where(.divider) {
+  border-top: 1px solid #000;
+  margin: 10px 0;
+}
+
+.preview-content :where(.section-title) {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 10px 0 6px;
+}
+
+.preview-content :where(.row) {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.preview-content :where(.label) {
+  min-width: 150px;
+  font-weight: 700;
+}
+
+.preview-content :where(table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.preview-content :where(th, td) {
+  border: 1px solid #000;
+  padding: 4px 6px;
+  font-size: 13px;
+}
+
+.preview-content :where(th) {
+  background: #f2f2f2;
+}
+
+.preview-content :where(.footer) {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 11px;
+}
+
+@media (max-width: 1080px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+}

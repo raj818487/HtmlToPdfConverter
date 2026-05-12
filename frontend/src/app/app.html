@@ -1,0 +1,83 @@
+<div class="page-shell">
+  <header class="topbar">
+    <h1>HTML to PDF Converter</h1>
+    <p>Design inspired by Claude DESIGN.md</p>
+  </header>
+
+  <main class="workspace">
+    <section class="left-panel">
+      <h2>HTML Editor</h2>
+      <textarea
+        [(ngModel)]="htmlContent"
+        class="html-editor"
+        placeholder="Enter HTML code here">
+      </textarea>
+    </section>
+
+    <section class="right-panel">
+      <h2>PDF Settings</h2>
+
+      <div class="form-group">
+        <label for="pageSize">Page Size</label>
+        <select id="pageSize" [(ngModel)]="pageSize">
+          <option value="A4">A4</option>
+          <option value="A3">A3</option>
+          <option value="A5">A5</option>
+          <option value="Letter">Letter</option>
+          <option value="Legal">Legal</option>
+          <option value="Tabloid">Tabloid</option>
+          <option value="Ledger">Ledger</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="orientation">Orientation</label>
+        <select id="orientation" [(ngModel)]="orientation">
+          <option value="Portrait">Portrait</option>
+          <option value="Landscape">Landscape</option>
+        </select>
+      </div>
+
+      <div class="grid-two">
+        <div class="form-group">
+          <label for="marginTop">Margin Top</label>
+          <input id="marginTop" type="text" [(ngModel)]="marginTop" />
+        </div>
+        <div class="form-group">
+          <label for="marginBottom">Margin Bottom</label>
+          <input id="marginBottom" type="text" [(ngModel)]="marginBottom" />
+        </div>
+        <div class="form-group">
+          <label for="marginLeft">Margin Left</label>
+          <input id="marginLeft" type="text" [(ngModel)]="marginLeft" />
+        </div>
+        <div class="form-group">
+          <label for="marginRight">Margin Right</label>
+          <input id="marginRight" type="text" [(ngModel)]="marginRight" />
+        </div>
+      </div>
+
+      <label class="checkbox-row">
+        <input type="checkbox" [(ngModel)]="printBackground" />
+        <span>Print Background</span>
+      </label>
+
+      <button
+        type="button"
+        class="generate-btn"
+        (click)="generatePdf()"
+        [disabled]="isLoading">
+        {{ isLoading ? 'Generating...' : 'Generate PDF' }}
+      </button>
+
+      @if (errorMessage) {
+        <p class="error">{{ errorMessage }}</p>
+      }
+
+      <div class="preview-box">
+        <h3>HTML Preview</h3>
+        <div class="preview-content" [innerHTML]="sanitizedPreviewHtml"></div>
+      </div>
+    </section>
+  </main>
+</div>
